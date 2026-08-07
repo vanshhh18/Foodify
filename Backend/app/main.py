@@ -1,10 +1,15 @@
 from fastapi import FastAPI
-from app.database import engine
 
-app = FastAPI()
+from app.auth.auth_router import router as auth_router
+
+app = FastAPI(
+    title="FoodRescue AI"
+)
+
+app.include_router(auth_router)
 
 @app.get("/")
 
 def home():
-    with engine.connect() as conn:
-        return {"message": "Connected to Neon Postgresql"}
+    
+        return {"message": "backend RUnning"}

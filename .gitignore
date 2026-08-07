@@ -1,18 +1,40 @@
-# VS Code settings
+# VS Code
 .vscode/
 
-# Python virtual environment
-venv/
-.venv/
+# Python Virtual Environment
+Backend/venv/
+Backend/.venv/
 
-# Environment variables
-.env
+# Environment Variables
+Backend/.env
 
-# Python cache files
-__pycache__/
+# Python Cache
+**/__pycache__/
 *.py[cod]
 *$py.class
 
-# Database files (if using local SQLite)
+# Pytest
+.pytest_cache/
+
+# SQLite
 *.db
 *.sqlite3
+
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Build Files
+build/
+dist/
+*.egg-info/
+
+# Uploads
+Backend/uploads/
+
+# Frontend (for later)
+Frontend/node_modules/
+Frontend/.next/
