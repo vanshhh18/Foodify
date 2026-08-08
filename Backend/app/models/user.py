@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy import Enum
+
+from app.models.enums import UserRole
 
 from app.database import Base
 
@@ -18,7 +21,13 @@ class User(Base):
 
     phone_number = Column(String(20))
 
-    role = Column(String(20), nullable=False)
+    role = Column(
+    Enum(
+        UserRole,
+        values_callable=lambda enum: [e.value for e in enum]
+    ),
+    nullable=False
+)
 
     profile_image = Column(String)
 
