@@ -8,6 +8,9 @@ Backend/.venv/
 # Environment Variables
 Backend/.env
 
+# Uploaded donation images
+Backend/uploads/
+
 # Python Cache
 **/__pycache__/
 *.py[cod]
