@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth.jwt_handler import verify_token
 from app.models.user import User
+from app.models.enums import UserRole
 
 
 security = HTTPBearer()
@@ -48,20 +49,39 @@ def get_current_user(
     return user
 
 
-from app.models.enums import UserRole
 
-def require_role(required_role: UserRole):
-
+def require_role(*roles: UserRole):
     def role_checker(
         current_user: User = Depends(get_current_user)
     ):
-
-        if current_user.role != required_role:
+        if current_user.role not in roles:
             raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="You don't have permission to access this resource"
+                status_code=403,
+                detail="Not authorized"
             )
 
         return current_user
 
     return role_checker
+
+
+def require_verified_role(*allowed_roles: UserRole):
+    def dependency(
+        current_user: User = Depends(get_current_user)
+    ):
+        if current_user.role not in allowed_roles:
+            raise HTTPException(
+                status_code=403,
+                detail="You do not have permission to access this resource"
+            )
+
+        if not current_user.is_verified:
+            raise HTTPException(
+                status_code=403,
+                detail="Your account is not verified by an admin"
+            )
+
+        return current_user
+
+    return dependency
+    

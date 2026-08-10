@@ -1,6 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel
 from typing import Optional
+from app.models.enums import UserRole
 
 
 class DonationCreate(BaseModel):
@@ -40,6 +41,15 @@ class AIAnalysisResponse(BaseModel):
         from_attributes = True
 
 
+class ClaimantResponse(BaseModel):
+    id: int
+    full_name: str
+    role: UserRole
+
+    class Config:
+        from_attributes = True
+
+
 class DonationResponse(BaseModel):
     id: int
     user_id: int
@@ -52,8 +62,20 @@ class DonationResponse(BaseModel):
     longitude: Optional[float]
     status: str
     created_at: datetime
+
+    claimed_by: ClaimantResponse | None = None
+
     images: list[DonationImageResponse] = []
     ai_analysis: AIAnalysisResponse | None = None
+
+    class Config:
+        from_attributes = True
+
+
+class ClaimantResponse(BaseModel):
+    id: int
+    full_name: str
+    role: UserRole
 
     class Config:
         from_attributes = True

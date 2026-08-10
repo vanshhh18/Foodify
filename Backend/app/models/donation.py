@@ -23,6 +23,12 @@ class Donation(Base):
         nullable=False
     )
 
+    claimed_by_user_id = Column(
+        Integer,
+        ForeignKey("users.id"),
+        nullable=True
+    )
+
     category = Column(String)
 
     title = Column(String)
@@ -52,7 +58,13 @@ class Donation(Base):
 
     user = relationship(
         "User",
-        back_populates="donations"
+        back_populates="donations",
+        foreign_keys=[user_id]
+    )
+
+    claimed_by = relationship(
+        "User",
+        foreign_keys=[claimed_by_user_id]
     )
 
     images = relationship(

@@ -139,3 +139,130 @@ class DonationService:
         db.commit()
 
         return donation
+
+
+    @staticmethod
+    def get_available_donations(
+        db: Session
+    ):
+        return (
+            db.query(Donation)
+            .filter(
+                Donation.status == "PENDING"
+            )
+            .order_by(
+                Donation.created_at.desc()
+            )
+            .all()
+        )
+
+
+    @staticmethod
+    def get_available_donation_by_id(
+        db: Session,
+        donation_id: int
+    ):
+        return (
+            db.query(Donation)
+            .filter(
+                Donation.id == donation_id,
+                Donation.status == "PENDING"
+            )
+            .first()
+        )
+
+
+    @staticmethod
+    def claim_donation(
+        db: Session,
+        donation_id: int,
+        user_id: int
+    ):
+
+        donation = (
+            db.query(Donation)
+            .filter(
+                Donation.id == donation_id,
+                Donation.status == "PENDING"
+            )
+            .first()
+        )
+        if donation is None:
+            return None
+
+        donation.status = "CLAIMED"
+        donation.claimed_by_user_id = user_id
+
+        db.commit()
+        db.refresh(donation)
+
+        return donation
+
+
+    @staticmethod
+    def get_my_claimed_donations(
+        db: Session,
+        user_id: int
+    ):
+
+        return (
+            db.query(Donation)
+            .filter(
+                Donation.claimed_by_user_id == user_id,
+                Donation.status == "CLAIMED"
+            )
+            .order_by(
+            Donation.created_at.desc()
+            )
+            .all()
+        )
+
+
+    @staticmethod
+    def complete_donation(
+        db: Session,
+        donation_id: int,
+        user_id: int
+    ):
+
+        donation = (
+            db.query(Donation)
+            .filter(
+                Donation.id == donation_id,
+                Donation.claimed_by_user_id == user_id,
+                Donation.status == "CLAIMED"
+            )
+            .first()
+        )
+
+        if donation is None:
+            return None
+
+        donation.status = "COMPLETED"
+
+        db.commit()
+        db.refresh(donation)
+
+        return donation
+
+
+    @staticmethod
+    def get_my_completed_donations(
+        db: Session,
+        user_id: int
+    ):
+
+        return (
+            db.query(Donation)
+            .filter(
+                Donation.claimed_by_user_id == user_id,
+                Donation.status == "COMPLETED"
+            )
+            .order_by(
+                Donation.created_at.desc()
+            )
+            .all()
+        )
+
+
+        

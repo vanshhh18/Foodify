@@ -10,6 +10,8 @@ from app.routers.donation_image import router as donation_image_router
 
 from app.routers.ai import router as ai_router
 
+from app.routers.verification_router import router as verification_router
+
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
@@ -27,6 +29,8 @@ app.include_router(auth_router)
 app.include_router(user_router)
 
 app.include_router(donation_router)
+
+app.include_router(verification_router)
 
 app.include_router(
     donation_image_router

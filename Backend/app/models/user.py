@@ -43,11 +43,19 @@ class User(Base):
 
     donations = relationship(
         "Donation",
-        back_populates="user"
+        back_populates="user",
+        foreign_keys="Donation.user_id"
     )
 
     ngo = relationship(
         "NGO",
         back_populates="user",
         uselist=False
+    )
+
+    verification_request = relationship(
+        "VerificationRequest",
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete-orphan"
     )
