@@ -14,6 +14,12 @@ class VerificationService:
         user_id: int,
         organization_name: str,
         registration_number: str,
+        address: str,
+        city: str,
+        state: str,
+        latitude: float | None,
+        longitude: float | None,
+        description: str | None,
         document: str
     ):
 
@@ -21,6 +27,12 @@ class VerificationService:
             user_id=user_id,
             organization_name=organization_name,
             registration_number=registration_number,
+            address=address,
+            city=city,
+            state=state,
+            latitude=latitude,
+            longitude=longitude,
+            description=description,
             document_path=document,
             status="PENDING"
         )

@@ -25,6 +25,8 @@ from app.models.verification import VerificationRequest
 
 from datetime import datetime
 
+from app.models.ngo import NGO
+
 router = APIRouter(
     prefix="/verification",
     tags=["Verification"]
@@ -38,6 +40,12 @@ router = APIRouter(
 async def create_verification_request(
     organization_name: str = Form(...),
     registration_number: str = Form(...),
+    address: str = Form(...),
+    city: str = Form(...),
+    state: str = Form(...),
+    latitude: float | None = Form(None),
+    longitude: float | None =  Form(None),
+    description: str | None = Form(None),
     document: UploadFile = File(...),
     db: Session = Depends(get_db),
     current_user: User = Depends(
@@ -102,9 +110,14 @@ async def create_verification_request(
             user_id=current_user.id,
             organization_name=organization_name,
             registration_number=registration_number,
+            address=address,
+            city=city,
+            state=state,
+            latitude=latitude,
+            longitude=longitude,
+            description=description,
             document=file_path
         )
-
         return verification
 
     except Exception:
@@ -176,6 +189,21 @@ def approve_verification(
     verification.reviewed_at = datetime.utcnow()
 
     user.is_verified = True
+
+    ngo = NGO(
+        user_id=user.id,
+        ngo_name=verification.organization_name,
+        registration_number=verification.registration_number,
+        address=verification.address,
+        city=verification.city,
+        state=verification.state,
+        latitude=verification.latitude,
+        longitude=verification.longitude,
+        description=verification.description,
+        verified=True
+    )
+
+    db.add(ngo)
 
     db.commit()
 
