@@ -3,7 +3,8 @@ from sqlalchemy import (
     Integer,
     ForeignKey,
     JSON,
-    Float
+    Float,
+    String
 )
 from sqlalchemy.orm import relationship
 
@@ -11,18 +12,39 @@ from app.database import Base
 
 
 class AIAnalysis(Base):
+
     __tablename__ = "ai_analysis"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(
+        Integer,
+        primary_key=True
+    )
 
     donation_id = Column(
         Integer,
-        ForeignKey("donations.id")
+        ForeignKey("donations.id"),
+        nullable=False
     )
 
-    analysis_json = Column(JSON)
+    diet_type = Column(
+        String,
+        nullable=True
+    )
 
-    confidence_score = Column(Float)
+    condition = Column(
+        String,
+        nullable=True
+    )
+
+    analysis_json = Column(
+        JSON,
+        nullable=True
+    )
+
+    confidence_score = Column(
+        Float,
+        nullable=True
+    )
 
     donation = relationship(
         "Donation",

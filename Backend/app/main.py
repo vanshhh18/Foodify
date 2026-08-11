@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from fastapi.middleware.cors import CORSMiddleware
+
 from app.auth.auth_router import router as auth_router
 
 from app.routers.user_router import router as user_router
@@ -16,6 +18,14 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title="FoodRescue AI"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.mount(
