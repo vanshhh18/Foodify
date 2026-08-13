@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { styles } from "../../styles/dashboard.styles";
 
-function DonorDashboard() {
+function NGODashboard() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
@@ -17,7 +17,7 @@ function DonorDashboard() {
       <div style={styles.header}>
         <h1 style={styles.title}>🍽️ FoodRescue AI</h1>
         <div style={styles.userInfo}>
-          <span style={styles.userGreeting}>Welcome, {user?.full_name}!</span>
+          <span style={styles.userGreeting}>Welcome, {user?.organization_name || user?.full_name}!</span>
           <button onClick={handleLogout} style={styles.logoutBtn}>
             Logout
           </button>
@@ -27,33 +27,33 @@ function DonorDashboard() {
       {/* Content */}
       <div style={styles.content}>
         <div style={styles.hero}>
-          <h2 style={styles.subtitle}>Share Food, Save Lives</h2>
+          <h2 style={styles.subtitle}>Help Your Community</h2>
           <p style={styles.description}>
-            Your donations can make a real difference. Share surplus food with NGOs and communities in need.
+            Browse available food donations and claim them for your organization. Track your impact with every donation received.
           </p>
         </div>
 
         <div style={styles.buttonGrid}>
           <button
-            onClick={() => navigate("/donor/create")}
-            style={styles.actionButton}
-            onMouseOver={(e) => (e.target.style.backgroundColor = "#2E8B57")}
-            onMouseOut={(e) => (e.target.style.backgroundColor = "#4CAF50")}
-          >
-            <div style={styles.buttonIcon}>➕</div>
-            <div style={styles.buttonLabel}>Create Donation</div>
-            <div style={styles.buttonDesc}>List a new food donation</div>
-          </button>
-
-          <button
-            onClick={() => navigate("/donor/donations")}
+            onClick={() => navigate("/ngo/available")}
             style={styles.actionButton}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#1976D2")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#2196F3")}
           >
-            <div style={styles.buttonIcon}>📋</div>
-            <div style={styles.buttonLabel}>My Donations</div>
-            <div style={styles.buttonDesc}>View and manage your donations</div>
+            <div style={styles.buttonIcon}>🔍</div>
+            <div style={styles.buttonLabel}>Browse Donations</div>
+            <div style={styles.buttonDesc}>Find available food to claim</div>
+          </button>
+
+          <button
+            onClick={() => navigate("/ngo/claimed")}
+            style={styles.actionButton}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#2E8B57")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#4CAF50")}
+          >
+            <div style={styles.buttonIcon}>🎯</div>
+            <div style={styles.buttonLabel}>My Claims</div>
+            <div style={styles.buttonDesc}>Track claimed donations</div>
           </button>
 
           <button
@@ -64,28 +64,28 @@ function DonorDashboard() {
           >
             <div style={styles.buttonIcon}>👤</div>
             <div style={styles.buttonLabel}>My Profile</div>
-            <div style={styles.buttonDesc}>View your profile details</div>
+            <div style={styles.buttonDesc}>View organization details</div>
           </button>
         </div>
 
         <div style={styles.infoBox}>
-          <h3 style={styles.infoTitle}>💡 How It Works</h3>
+          <h3 style={styles.infoTitle}>💡 How to Get Started</h3>
           <div style={styles.infoList}>
             <div style={styles.infoItem}>
               <span style={styles.step}>1</span>
-              <p>Create a donation listing with details about your food</p>
+              <p>Browse available food donations in your area</p>
             </div>
             <div style={styles.infoItem}>
               <span style={styles.step}>2</span>
-              <p>Use AI to auto-fill details by uploading an image</p>
+              <p>Claim donations that match your community's needs</p>
             </div>
             <div style={styles.infoItem}>
               <span style={styles.step}>3</span>
-              <p>Verified NGOs browse and claim your donations</p>
+              <p>Arrange pickup from donor's location</p>
             </div>
             <div style={styles.infoItem}>
               <span style={styles.step}>4</span>
-              <p>Track when donations are collected and received</p>
+              <p>Mark donations as collected when received</p>
             </div>
           </div>
         </div>
@@ -94,4 +94,4 @@ function DonorDashboard() {
   );
 }
 
-export default DonorDashboard;
+export default NGODashboard;

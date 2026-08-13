@@ -13,7 +13,6 @@ function DonorDashboard() {
 
   return (
     <div style={styles.container}>
-      {/* Header */}
       <div style={styles.header}>
         <h1 style={styles.title}>🍽️ FoodRescue AI</h1>
         <div style={styles.userInfo}>
@@ -24,7 +23,6 @@ function DonorDashboard() {
         </div>
       </div>
 
-      {/* Content */}
       <div style={styles.content}>
         <div style={styles.hero}>
           <h2 style={styles.subtitle}>Share Food, Save Lives</h2>
