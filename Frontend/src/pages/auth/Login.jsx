@@ -1,8 +1,10 @@
 import { useState } from "react";
 import api from "../../api/axios";
 import { getCurrentUser } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,8 +26,9 @@ function Login() {
 
       console.log("Logged in user:", user);
 
-      console.log("Login successful!");
-
+      if (user.role === "donor") {
+        navigate("/donor");
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }
