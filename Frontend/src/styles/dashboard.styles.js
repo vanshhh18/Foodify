@@ -317,6 +317,43 @@ export const styles = {
     borderLeft: "4px solid #4CAF50",
     boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
   },
+
+  // Cards
+  card: {
+    backgroundColor: "white",
+    borderRadius: "12px",
+    padding: "25px",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+    transition: "all 0.3s ease",
+  },
+  cardHover: {
+    transform: "translateY(-5px)",
+    boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
+  },
+
+  // Category Cards
+  categoryCard: {
+    padding: "40px 20px",
+    backgroundColor: "white",
+    color: "#333",
+    border: "2px solid #e0e0e0",
+    borderRadius: "16px",
+    cursor: "pointer",
+    textAlign: "center",
+    transition: "all 0.3s ease",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+  },
+
+  // Error Message
+  errorMessage: {
+    backgroundColor: "#ffebee",
+    color: "#c62828",
+    padding: "15px",
+    borderRadius: "8px",
+    marginBottom: "20px",
+    border: "1px solid #ffcdd2",
+    fontSize: "14px",
+  },
 };
 
 export const categoryIcons = {

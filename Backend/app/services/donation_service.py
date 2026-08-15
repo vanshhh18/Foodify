@@ -56,23 +56,24 @@ class DonationService:
             db.commit()
 
         return new_donation
+
     @staticmethod
     def get_user_donations(
         db: Session,
         user_id: int
     ):
         return (
-        db.query(Donation)
-        .filter(Donation.user_id == user_id)
-        .order_by(Donation.created_at.desc())
-        .all()
-    )
+            db.query(Donation)
+            .filter(Donation.user_id == user_id)
+            .order_by(Donation.created_at.desc())
+            .all()
+        )
 
     @staticmethod
     def get_donation_by_id(
         db: Session,
         donation_id: int,
-        user_id: id
+        user_id: int
     ):
         return (
             db.query(Donation)
@@ -81,7 +82,7 @@ class DonationService:
                 Donation.user_id == user_id
             )
             .first()
-            )
+        )
 
 
     @staticmethod
